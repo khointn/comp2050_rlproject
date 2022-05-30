@@ -118,20 +118,13 @@ class ValueIterationAgent(ValueEstimationAgent):
             """
             "*** YOUR CODE HERE ***"
             actions = self.mdp.getPossibleActions(state)
-            maxi = -math.inf
-
-            if (len (actions) <= 0):
-                return None
-
-            res = actions[0]
+            Q= [float('-inf')]
 
             for i in actions:
-                temp = self.computeQValueFromValues(state,i)
-                if (temp > maxi):
-                    maxi = temp
-                    res = i
+                Q.append(self.getQValue(state, i))
 
-            return res
+
+            return max(Q)
 
             util.raiseNotDefined()
 
