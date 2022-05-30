@@ -167,6 +167,28 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
 
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
+        for _ in range(self.iterations):
+            update_values_dict = self.values.copy()
+
+            # get Q_values for each possible s_prime
+            for state in self.mdp.getStates():
+                Q_values = [float('-inf')]
+                terminal_state = self.mdp.isTerminal(state)  # boolean
+
+                # Terminal states have 0 value.
+                if terminal_state:
+                    update_values_dict[state] = 0
+
+                else:
+                    legal_actions = self.mdp.getPossibleActions(state)
+
+                    for action in legal_actions:
+                        Q_values.append(self.getQValue(state, action))
+
+                    # update value function at state s to largest Q_value
+                    update_values_dict[state] = max(Q_values)
+
+            self.values = update_values_dict
 
 class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     """
