@@ -117,11 +117,19 @@ class ValueIterationAgent(ValueEstimationAgent):
               terminal state, you should return None.
             """
             "*** YOUR CODE HERE ***"
+            # actions = self.mdp.getPossibleActions(state)
+            # Q= [float('-inf')]
+            #
+            # for i in actions:
+            #     Q.append(self.getQValue(state, i))
+            #
+            #
+            # return max(Q)
             actions = self.mdp.getPossibleActions(state)
             maxi = -math.inf
 
             if (len (actions) <= 0):
-                return None
+                    return None
 
             res = actions[0]
 
@@ -132,7 +140,6 @@ class ValueIterationAgent(ValueEstimationAgent):
                     res = i
 
             return res
-
             util.raiseNotDefined()
 
     def getPolicy(self, state):
@@ -174,6 +181,27 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
 
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
+        possiState = self.mdp.getStates()
+        for state in range(self.iterations):
+                update_values_dict = self.values.copy()
+                # get Q_values for each possible s_prime
+                Q_values = [float('-inf')]
+                terminal_state = self.mdp.isTerminal(possiState[state % len(possiState)])  # boolean
+
+                # Terminal states have 0 value.
+                if terminal_state:
+                    update_values_dict[possiState[state % len(possiState)]] = 0
+
+                else:
+                    legal_actions = self.mdp.getPossibleActions(possiState[state % len(possiState)])
+
+                    for action in legal_actions:
+                        Q_values.append(self.getQValue(possiState[state % len(possiState)], action))
+
+                    # update value function at state s to largest Q_value
+                    update_values_dict[possiState[state % len(possiState)]] = max(Q_values)
+
+                self.values = update_values_dict
 
 class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     """
