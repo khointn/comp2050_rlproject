@@ -223,3 +223,64 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
 
+        count_idx = 0
+
+        states = self.mdp.getStates()
+        adj_matrix = []
+        state_to_index = util.Counter()
+
+        for s_i in states:
+            adj_list = set()
+
+            for s_j in states:
+                actions = self.mdp.getPossibleActions(s_j)
+
+                for action in actions:
+                    state_prob = self.mdp.getTransitionStatesAndProbs(s_j, action)
+
+                    for new_state, prob in state_prob:
+                        if new_state == s_i and prob > 0:
+                            adj_list.add(s_j)
+
+            adj_matrix.append(adj_list)
+            state_to_index[s_i] = count
+            count += 1
+
+        # initialize a priority queue
+        p_queue = util.PriorityQueue()
+        new_values = util.Counter()
+        # find diff of each s, store new value in new_values, push s, -diff
+        for state in full_states:
+            actions = self.mdp.getPossibleActions(state)
+            if self.mdp.isTerminal(state):
+                continue
+            current_value = self.getValue(state)
+            best_action = self.computeActionFromValues(state)
+            
+            if best_action:
+                new_value = self.computeQValueFromValues(state, best_action)
+                new_values[state] = new_value
+                diff = abs(current_value - new_value)
+                p_queue.push(state, -diff)
+            else:
+                new_values[state] = current_value
+
+        # do iterations
+        for _ in range(self.iterations):
+            # if p_queue is empty, terminate
+            if p_queue.isEmpty():
+                break
+            front = p_queue.pop()
+            if not self.mdp.isTerminal(front):
+                self.values[front] = new_values[front]
+            # precess front's pred
+            for pred in adjacent_matrix[state_to_index[front]]:
+                current_value = self.getValue(pred)
+                best_action = self.computeActionFromValues(pred)
+                if best_action:
+                    new_value = self.computeQValueFromValues(pred, best_action)
+                    diff = abs(current_value - new_value)
+                    new_values[pred] = new_value
+                    if diff > self.theta:
+                        p_queue.update(pred, -diff)
+
