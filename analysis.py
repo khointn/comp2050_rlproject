@@ -26,44 +26,66 @@ def question2():
     return answerDiscount, answerNoise
 
 def question3a():
-    answerDiscount = 0.85
+    # Strategy: low discount, no noise, survival penalty
+    # => the further the reward, the less attractive
+    # => no randomness, no chance falling into the cliff
+    # => being alive for long (avoiding the cliff) is not advantageous
+    answerDiscount = 0.2
     answerNoise = 0.0
-    answerLivingReward = -5
+    answerLivingReward = -1
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3b():
+    # Strategy: low discount, some noise, small survival reward
+    # => the further the reward, the less attractive
+    # => some randomness, chance falling into the cliff, hence avoid
+    # => being alive is advantageous, but not too much
     answerDiscount = 0.2
-    answerNoise = 0.22
-    answerLivingReward = 0.6
+    answerNoise = 0.2
+    answerLivingReward = 0.5
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3c():
-    answerDiscount = 1
+    # Strategy: high discount, no noise, survival penalty
+    # => further reward are still attractive
+    # => no randomness, no chance falling into the cliff
+    # => being alive for long (avoiding the cliff) is not advantageous
+    answerDiscount = 0.9
     answerNoise = 0.0
     answerLivingReward = -1
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3d():
-    answerDiscount = 0.75
-    answerNoise = 0.35
-    answerLivingReward = 2
+    # Strategy: high discount, noise, survival reward
+    # => further reward are still attractive
+    # => randomness, chance falling into the cliff, hence avoid
+    # => being alive for long is advantageous
+    answerDiscount = 0.8
+    answerNoise = 0.4
+    answerLivingReward = 1
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question3e():
+    # Strategy: no discount, noise, survival reward
+    # => reward are not attractive
+    # => full randomness
+    # => being alive for long is advantageous
     answerDiscount = 0
     answerNoise = 1
-    answerLivingReward = 0
+    answerLivingReward = 1
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
 def question8():
-    answerEpsilon = None
-    answerLearningRate = None
-    return answerEpsilon, answerLearningRate
+    # Q-learning needs high iterations
+    return 'NOT POSSIBLE'
+    # answerEpsilon = None
+    # answerLearningRate = None
+    # return answerEpsilon, answerLearningRate
     # If not possible, return 'NOT POSSIBLE'
 
 if __name__ == '__main__':

@@ -161,27 +161,25 @@ class AsynchronousValueIterationAgent(ValueIterationAgent):
 
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
-        possiState = self.mdp.getStates()
+        possibleStates = self.mdp.getStates()
         for state in range(self.iterations):
-                update_values_dict = self.values.copy()
+                newValues = self.values.copy()
                 # get Q_values for each possible s_prime
-                Q_values = [float('-inf')]
-                terminal_state = self.mdp.isTerminal(possiState[state % len(possiState)])  # boolean
+                Qvalues = [float('-inf')]
 
                 # Terminal states have 0 value.
-                if terminal_state:
-                    update_values_dict[possiState[state % len(possiState)]] = 0
-
+                if self.mdp.isTerminal(possibleStates[state % len(possibleStates)]):
+                    newValues[possibleStates[state % len(possibleStates)]] = 0
                 else:
-                    legal_actions = self.mdp.getPossibleActions(possiState[state % len(possiState)])
+                    legalActions = self.mdp.getPossibleActions(possibleStates[state % len(possibleStates)])
 
-                    for action in legal_actions:
-                        Q_values.append(self.getQValue(possiState[state % len(possiState)], action))
+                    for action in legalActions:
+                        Qvalues.append(self.getQValue(possibleStates[state % len(possibleStates)], action))
 
                     # update value function at state s to largest Q_value
-                    update_values_dict[possiState[state % len(possiState)]] = max(Q_values)
+                    newValues[possibleStates[state % len(possibleStates)]] = max(Qvalues)
 
-                self.values = update_values_dict
+                self.values = newValues
 
 class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     """
@@ -206,7 +204,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
         count = 0
 
         states = self.mdp.getStates()
-        adj_matrix = []
+        adjMatrix = []
         state_to_index = util.Counter()
 
         for s_i in states:
@@ -222,7 +220,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
                         if new_state == s_i and prob > 0:
                             adj_list.add(s_j)
 
-            adj_matrix.append(adj_list)
+            adjMatrix.append(adj_list)
             state_to_index[s_i] = count
             count += 1
 
@@ -254,7 +252,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
             if not self.mdp.isTerminal(front):
                 self.values[front] = new_values[front]
             # precess front's pred
-            for pred in adj_matrix[state_to_index[front]]:
+            for pred in adjMatrix[state_to_index[front]]:
                 current_value = self.getValue(pred)
                 best_action = self.computeActionFromValues(pred)
                 if best_action:
