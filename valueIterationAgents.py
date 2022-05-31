@@ -24,8 +24,6 @@
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
 # Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
-import math
-
 import mdp, util
 
 from learningAgents import ValueEstimationAgent
@@ -63,27 +61,23 @@ class ValueIterationAgent(ValueEstimationAgent):
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
         for _ in range(self.iterations):
-            update_values_dict = self.values.copy()
+            newValues = self.values.copy()
 
             # get Q_values for each possible s_prime
             for state in self.mdp.getStates():
                 Q_values = [float('-inf')]
-                terminal_state = self.mdp.isTerminal(state)  # boolean
 
                 # Terminal states have 0 value.
-                if terminal_state:
-                    update_values_dict[state] = 0
-
+                if self.mdp.isTerminal(state):
+                    newValues[state] = 0
                 else:
-                    legal_actions = self.mdp.getPossibleActions(state)
-
-                    for action in legal_actions:
+                    legalActions = self.mdp.getPossibleActions(state)
+                    for action in legalActions:
                         Q_values.append(self.getQValue(state, action))
 
                     # update value function at state s to largest Q_value
-                    update_values_dict[state] = max(Q_values)
-
-            self.values = update_values_dict
+                    newValues[state] = max(Q_values)
+            self.values = newValues
 
     def getValue(self, state):
         """
@@ -101,46 +95,32 @@ class ValueIterationAgent(ValueEstimationAgent):
         possibleStates = self.mdp.getTransitionStatesAndProbs(state, action)
         sumQVal = 0
 
-        for i, p in possibleStates:
-            sumQVal += p* (self.mdp.getReward(state, action, i) + self.discount*self.getValue(i)) # formula here : https://inst.eecs.berkeley.edu/~cs188/fa18/assets/notes/n4.pdf
+        for s, p in possibleStates:
+            sumQVal += p * (self.mdp.getReward(state, action, s) + self.discount*self.getValue(s)) # formula here : https://inst.eecs.berkeley.edu/~cs188/fa18/assets/notes/n4.pdf
 
         return sumQVal
         util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
-            """
-              The policy is the best action in the given state
-              according to the values currently stored in self.values.
+        """
+            The policy is the best action in the given state
+            according to the values currently stored in self.values.
 
-              You may break ties any way you see fit.  Note that if
-              there are no legal actions, which is the case at the
-              terminal state, you should return None.
-            """
-            "*** YOUR CODE HERE ***"
-            # actions = self.mdp.getPossibleActions(state)
-            # Q= [float('-inf')]
-            #
-            # for i in actions:
-            #     Q.append(self.getQValue(state, i))
-            #
-            #
-            # return max(Q)
-            actions = self.mdp.getPossibleActions(state)
-            maxi = -math.inf
+            You may break ties any way you see fit.  Note that if
+            there are no legal actions, which is the case at the
+            terminal state, you should return None.
+        """
+        "*** YOUR CODE HERE ***"
+        actions = self.mdp.getPossibleActions(state)
+        if len(actions) == 0:
+            return None
 
-            if (len (actions) <= 0):
-                    return None
-
-            res = actions[0]
-
-            for i in actions:
-                temp = self.computeQValueFromValues(state,i)
-                if (temp > maxi):
-                    maxi = temp
-                    res = i
-
-            return res
-            util.raiseNotDefined()
+        maxQ, maxA = -float('inf'), actions[0]
+        for a in actions:
+            tmpQ = self.getQValue(state, a)
+            if tmpQ > maxQ:
+                maxQ, maxA = tmpQ, a
+        return maxA
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
