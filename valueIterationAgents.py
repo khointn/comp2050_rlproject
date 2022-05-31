@@ -223,7 +223,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
     def runValueIteration(self):
         "*** YOUR CODE HERE ***"
 
-        count_idx = 0
+        count = 0
 
         states = self.mdp.getStates()
         adj_matrix = []
@@ -250,7 +250,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
         p_queue = util.PriorityQueue()
         new_values = util.Counter()
         # find diff of each s, store new value in new_values, push s, -diff
-        for state in full_states:
+        for state in states:
             actions = self.mdp.getPossibleActions(state)
             if self.mdp.isTerminal(state):
                 continue
@@ -274,7 +274,7 @@ class PrioritizedSweepingValueIterationAgent(AsynchronousValueIterationAgent):
             if not self.mdp.isTerminal(front):
                 self.values[front] = new_values[front]
             # precess front's pred
-            for pred in adjacent_matrix[state_to_index[front]]:
+            for pred in adj_matrix[state_to_index[front]]:
                 current_value = self.getValue(pred)
                 best_action = self.computeActionFromValues(pred)
                 if best_action:
