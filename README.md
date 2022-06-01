@@ -23,9 +23,4 @@ Nguyen Dai Nghia - https://github.com/nghia-nd
 
 Nguyen Tiet Nguyen Khoi - https://github.com/khointn
 
-### Result
-
-
-https://user-images.githubusercontent.com/53163183/171327831-ee032eaa-e369-429a-a0e4-f439b6251e3b.mp4
-
 
