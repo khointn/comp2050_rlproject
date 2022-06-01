@@ -1,17 +1,13 @@
 # comp2050-rlproject
 Reinforcement learning project for class Artificial Intelligence COMP2050 - VinUni.
+
 ### Description
 
-Crawler bot: 
-
-The idea of the Crawler Bot is from the Berkeley AI course project CS188. A clear description of the bot can be find here: 
-https://www.youtube.com/watch?v=TiXS7vROBEg&t=812s
-
-Basically, the bot is structured as below : 
-
-![image](https://user-images.githubusercontent.com/53163183/170682238-87eaa1ed-fad9-4ca7-b4f3-27975ca8bd7e.png)
-
-where we can adjust the angle which is colored in red. The aim is to use Q-learning to make the bot move forward as effective as possible. 
+In this project, we implement two crucial agents and one additional agent, which are used to solve 3 reinforcement learning problems:
+ 
+* Value Iteration Agent, for solving a Markov Decision Process (MDP) in a fully observable stochastic grid world.
+* Q-learning Agent, for training the simulated crawler bot to learn how to move forward, and for playing Pacman puzzle.
+* Approximate Q-learning Agent (additional), for playing Pacman puzzle, which gives better result than the casual Q-learning Agent, according to our examination.
 
 We would use the supporting material from the course CS188: https://inst.eecs.berkeley.edu/~cs188/fa18/project3.html
 
