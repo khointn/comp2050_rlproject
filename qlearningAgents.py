@@ -62,6 +62,7 @@ class QLearningAgent(ReinforcementAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
+        "*** YOUR CODE HERE ***"
         maxQ = float("-inf")
         actions = self.getLegalActions(state)
 
@@ -79,6 +80,7 @@ class QLearningAgent(ReinforcementAgent):
           are no legal actions, which is the case at the terminal state,
           you should return None.
         """
+        "*** YOUR CODE HERE ***"
         legalActions  = self.getLegalActions(state)  # barely legal ? the stroke ???
 
         # Terminal state
