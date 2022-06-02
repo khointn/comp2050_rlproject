@@ -15,6 +15,9 @@ The project use the supporting material from the UC Berkeley's [CS188 course](ht
 
 - Pham Quoc Trung - https://github.com/thesunsavior
 - Nguyen Dai Nghia - https://github.com/nghia-nd
+    - Solutions for Q8 to Q10
+    - Implementation for Approximate Q-Learning Agents
+    - Solution testing (Q1-Q10), documentation, and code refinement
 - Nguyen Tiet Nguyen Khoi - https://github.com/khointn
 
 ## Answers
@@ -170,7 +173,7 @@ python gridworld.py -a q -k 5 -m
 ```
 
 #### **Q7. Epsilon Greedy**
-Specifications: [Project 3: Question 6](https://inst.eecs.berkeley.edu/~cs188/fa18/project3.html#6)
+Specifications: [Project 3: Question 7](https://inst.eecs.berkeley.edu/~cs188/fa18/project3.html#7)
 
 - File: `qLearningAgents.py`. Class: `QLearningAgent`
 - Implemented: `getAction()`
@@ -238,6 +241,7 @@ To run Pacman with 50 episodes of traning on `mediumGrid`
 python pacman.py -p ApproximateQAgent -a extractor=SimpleExtractor -x 50 -n 60 -l mediumGrid 
 ```
 The performance is quite remarkable on `mediumGrid` and `mediumClassic` with only 50 episodes to achieve high rate of winning. 
+
 ![Pacman Medium Grid](images/pacman_medium_grid.png)
 
 ![Pacman Medium Classic](images/pacman_medium_classic.png)
