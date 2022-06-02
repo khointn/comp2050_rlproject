@@ -249,3 +249,6 @@ The performance is quite remarkable on `mediumGrid` and `mediumClassic` with onl
 However, `ApproximateQAgent` have minor troubles on the `smallGrid` due to the dead-end setup for 50 episodes of training.
 
 ![Pacman Small Grid with dead end](images/pacman_deadend.png)
+
+## References
+[1] “Project 3: Reinforcement Learning,” CS 188: Introduction to Artificial Intelligence, Fall 2018, 2018. https://inst.eecs.berkeley.edu/~cs188/fa18/project3.html
