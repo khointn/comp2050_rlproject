@@ -14,6 +14,9 @@ The project use the supporting material from the UC Berkeley's [CS188 course](ht
 ## Team members
 
 - Pham Quoc Trung - https://github.com/thesunsavior
+    - Solution for Q1,Q2,Q6,Q7
+    - Implementation for ordinary value iteration and Q-learning for the crawler bot
+    - documentation
 - Nguyen Dai Nghia - https://github.com/nghia-nd
     - Solutions for Q8 to Q10.
     - Implementation for Approximate Q-Learning Agents.
