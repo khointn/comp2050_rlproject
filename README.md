@@ -15,10 +15,13 @@ The project use the supporting material from the UC Berkeley's [CS188 course](ht
 
 - Pham Quoc Trung - https://github.com/thesunsavior
 - Nguyen Dai Nghia - https://github.com/nghia-nd
-    - Solutions for Q8 to Q10
-    - Implementation for Approximate Q-Learning Agents
-    - Solution testing (Q1-Q10), documentation, and code refinement
+    - Solutions for Q8 to Q10.
+    - Implementation for Approximate Q-Learning Agents.
+    - Solution testing (Q1-Q10), documentation, and code refinement.
 - Nguyen Tiet Nguyen Khoi - https://github.com/khointn
+    - Solutions for Q3 to Q5.
+    - Implementation for Asynchronous Value Iteration Agent and Prioritized Sweeping Value Iteration Agent.
+    - Solution testing for Crawler bot.
 
 ## Answers
 All the implementation and analysis is contained within 3 main files: `valueIterationAgents.py`, `qLearningAgents.py`, and `analysis.py`
